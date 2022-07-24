@@ -21,7 +21,7 @@ def get_news(url, attempts=5):
     while attempt < attempts:
         try:
             page = requests.get(url)
-        except:
+        except Exception:
             attempt += 1
             time.sleep(3)
             continue
@@ -44,11 +44,11 @@ def get_news(url, attempts=5):
     for path in xpath_list:
         result = tree.xpath(path)
         if result[0].get('class'):
-            if ('news-listing__item' in result[0].get('class')) \
-                and ('h3' in path):
+            if ('news-listing__item' in result[0].get('class')) and \
+                    ('h3' in path):
                 news_xpath_list.append(path)
-            elif ('news-listing__day-date' in result[0].get('class')) \
-                and ('h2' in path):
+            elif ('news-listing__day-date' in result[0].get('class')) and \
+                    ('h2' in path):
                 date = result[0].text
         else:
             continue
@@ -80,8 +80,8 @@ def get_url_list():
     # Для каждого сочетания года, месяца и дня сформируем ссылку
     for y, m, d in itertools.product(years, months, days):
         if (int(y) == datetime.now().year) \
-                    and (int(m) == datetime.now().month) \
-                        and (int(d) == datetime.now().day):
+                    and (int(m) == datetime.now().month) and \
+                        (int(d) == datetime.now().day):
                     break
         else:
             url_list.append(f'https://www.mk.ru/news/{y}/{m}/{d}/')
@@ -133,7 +133,7 @@ def news_parse(target_folder, file_name, urls, timeout_evry_url=20):
 
 if __name__ == '__main__':
 
-    target_folder = 'data' 
+    target_folder = 'data'
     file_name = 'news.csv'
 
     url_list = get_url_list()
