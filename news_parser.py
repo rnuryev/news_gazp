@@ -79,10 +79,10 @@ def get_url_list():
 
     # Для каждого сочетания года, месяца и дня сформируем ссылку
     for y, m, d in itertools.product(years, months, days):
-        if (int(y) == datetime.now().year) \
-                    and (int(m) == datetime.now().month) and \
-                        (int(d) == datetime.now().day):
-                    break
+        if (int(y) == datetime.now().year) and \
+                (int(m) == datetime.now().month) and \
+                (int(d) == datetime.now().day):
+            break
         else:
             url_list.append(f'https://www.mk.ru/news/{y}/{m}/{d}/')
     return url_list
@@ -126,7 +126,7 @@ def news_parse(target_folder, file_name, urls, timeout_evry_url=20):
 
         print(f'Обработано ссылок: {url_count} из {len(urls)}')
 
-        # Пазуа после каждой timeout_evry_url-ой ссылки
+        # Пауза после каждой timeout_evry_url-ой ссылки
         if url_count % timeout_evry_url == 0:
             time.sleep(3)
 
